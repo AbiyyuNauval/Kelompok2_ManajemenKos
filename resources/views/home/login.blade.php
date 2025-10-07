@@ -7,7 +7,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        /* Font Family Kustom */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
@@ -59,7 +58,7 @@
                             <span class="absolute inset-y-0 left-0 flex items-center pl-3">
                                 <i data-lucide="mail" class="w-5 h-5 text-slate-500"></i>
                             </span>
-                            <input type="email" name="email" id="email" 
+                            <input type="email" name="email" id="email"
                                    class="w-full bg-slate-700 border border-slate-600 text-white rounded-md pl-10 pr-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
                                    placeholder="anda@email.com" required>
                         </div>
@@ -80,7 +79,7 @@
 
                 <div class="flex items-center justify-between mt-6">
                     <div class="flex items-center">
-                        <input id="remember-me" name="remember-me" type="checkbox" 
+                        <input id="remember-me" name="remember-me" type="checkbox"
                                class="h-4 w-4 rounded border-slate-600 bg-slate-700 text-teal-500 focus:ring-teal-500">
                         <label for="remember-me" class="ml-2 block text-sm text-slate-400">Ingat Saya</label>
                     </div>
@@ -90,7 +89,7 @@
                 </div>
 
                 <div class="mt-8">
-                    <button type="submit" 
+                    <button type="submit"
                             class="w-full bg-teal-500 text-white font-semibold py-3 px-4 rounded-lg hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-teal-500 transition-colors">
                         Login
                     </button>

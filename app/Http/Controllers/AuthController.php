@@ -12,7 +12,7 @@ class AuthController extends Controller
      */
     public function index()
     {
-        
+
     }
 
     /**
@@ -31,44 +31,11 @@ class AuthController extends Controller
         //
     }
 
-    public function showLogin()
-    {
-        return view('home.login');
-    }
-
-    public function login(Request $request)
-    {
-        $auth = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
-
-        $dataTest = [
-            'email' => 'kelompok2@gmail.com',
-            'password' => 'Kelompok2'
-        ];
-
-        if ($auth['email'] == $dataTest['email'] && $auth['password'] == $dataTest['password']){
-            $request->session()->put('user', [
-                'email' => $dataTest['email'],
-                'username' => "Kelompok 2"
-            ]);
-
-            return Redirect::to('/');
-        }
-
-        return view('home.login', [
-            'error' => 'Email atau password salah.'
-        ]);
-    }
-
-    public function showSignup()
-    {
+    public function showSignup(){
         return view('home.signup');
     }
 
-    public function signup(Request $request)
-    {
+    public function signup(Request $request){
         $request->validate([
             'name' => ['required', 'string', 'max:100'],
             'email' => ['required', 'email'],
@@ -78,6 +45,78 @@ class AuthController extends Controller
         return view('home.login', [
             'success' => 'Pendaftaran berhasil! Silahkan login.'
         ]);
+    }
+
+    public function showLogin(){
+        return view('home.login');
+    }
+
+    public function login(Request $request){
+        $auth = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        $admin = [
+            'username' => 'Admin',
+            'email' => 'admin@gmail.com',
+            'password' => 'Admin1234'
+        ];
+
+        $pelanggan = [
+            'username' => 'Pelanggan',
+            'email' => 'pelanggan@gmail.com',
+            'password' => 'Pelanggan1234'
+        ];
+
+        $users = [
+            [
+                'username' => 'Admin',
+                'email' => 'admin@gmail.com',
+                'password' => 'Admin1234',
+                'role' => 'Admin',
+                'redirect_to' => '/admin/dashboard'
+            ],
+            [
+                'username' => 'Pelanggan',
+                'email' => 'pelanggan@gmail.com',
+                'password' => 'Pelanggan1234',
+                'role' => 'Pelanggan',
+                'redirect_to' => '/home'
+            ],
+        ];
+
+        foreach ($users as $user){
+            if ($auth['email'] == $user['email'] && $auth['password'] == $user['password']){
+                $request->session()->put('user', [
+                    'email' => $user['email'],
+                    'username' => $user['username']
+                ]);
+
+                session(['role' => $user['role']]);
+                return Redirect::to($user['redirect_to']);
+            }
+        }
+
+        if ($auth['email'] == $pelanggan['email'] && $auth['password'] == $pelanggan['password']){
+            $request->session()->put('user', [
+                'email' => $pelanggan['email'],
+                'username' => $pelanggan['username']
+            ]);
+
+            session(['role' => 'Pelanggan']);
+            return Redirect::to('/home');
+        }
+
+        return view('home.login', [
+            'error' => 'Email atau password salah.'
+        ]);
+    }
+
+    public function logout(Request $request){
+        $request->session()->flush();
+
+        return Redirect::to('/home/login');
     }
 
     /**
